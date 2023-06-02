@@ -1,4 +1,4 @@
-# Mainsectors
+# Homepages
 Plugin Homepages for Magix CMS 3
 
 Ajouter une ou plusieurs page / catégorie sur la page d'accueil de votre site internet.
