@@ -134,7 +134,7 @@ class plugins_homepages_public extends plugins_homepages_db{
 
                 $extend['newRow'] = ['homepages' => 'homepages'];
                 $extend['collection'] = 'homepages';
-                $extend['type'] = 'root';
+                $extend['type'] = 'tree';
                 //print_r($extend);
             }
         }

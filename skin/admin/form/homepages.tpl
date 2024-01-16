@@ -1,13 +1,13 @@
 <div class="row">
     <form action="{$smarty.server.SCRIPT_NAME}?controller={$smarty.get.controller}&amp;action=add" class="col-ph-12 col-md-6 col-lg-4 validate_form add_to_ullist">
         <fieldset>
-            <h2>{#ms_add_page#}</h2>
+            <h2>{#hs_add_page#}</h2>
             <div class="form-group">
-                <label for="type_ms">{#ms_type#}</label>
+                <label for="type_ms">{#hs_type#}</label>
                 <select name="type_ms" id="type_ms" class="form-control has-optional-fields">
                     <option value="">{#choose_page#}</option>
-                    <option value="page" class="optional-field" data-target="#specific" data-get="pages" data-appendto="#pages">{#ms_pages#}</option>
-                    {*<option value="category" class="optional-field" data-target="#specific" data-get="categories" data-appendto="#pages">{#ms_categories#}</option>*}
+                    <option value="page" class="optional-field" data-target="#specific" data-get="pages" data-appendto="#pages">{#hs_pages#}</option>
+                    {*<option value="category" class="optional-field" data-target="#specific" data-get="categories" data-appendto="#pages">{#hs_categories#}</option>*}
                 </select>
                 <div id="specific" class="additional-fields collapse">
                     <div class="form-group">
@@ -33,7 +33,7 @@
                                         <ul class="list-unstyled">
                                         </ul>
                                         <div class="no-search-results">
-                                            <div class="alert alert-warning" role="alert"><i class="fa fa-warning margin-right-sm"></i>{#ms_no_entry_for#|sprintf:"<strong>'<span></span>'</strong>"}</div>
+                                            <div class="alert alert-warning" role="alert"><i class="fa fa-warning margin-right-sm"></i>{#hs_no_entry_for#|sprintf:"<strong>'<span></span>'</strong>"}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -49,14 +49,14 @@
         </fieldset>
     </form>
     <div id="page-list" class="col-ph-12 col-md-6 col-lg-4">
-        <h2>{#ms_on_homepage#}</h2>
+        <h2>{#hs_on_homepage#}</h2>
         <ul id="table-page" class="list-group sortable" role="tablist">
             {foreach $mss as $ms}
                 {include file="loop/pages.tpl"}
             {/foreach}
         </ul>
         <p class="no-entry alert alert-info{if {$mss|count}} hide{/if}">
-            <span class="fa fa-info"></span> {#ms_no_products#}
+            <span class="fa fa-info"></span> {#hs_no_products#}
         </p>
     </div>
 </div>
