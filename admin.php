@@ -267,7 +267,8 @@ class plugins_homepages_admin extends plugins_homepages_db {
 					break;
 				case 'get':
 					if(isset($this->content)) {
-						$this->setPagesTree($this->getItems($this->content,null,'all',false));
+                        $defaultLanguage = $this->collectionLanguage->fetchData(array('context'=>'one','type'=>'default'));
+                        $this->setPagesTree($this->getItems($this->content,array('default_lang' => $defaultLanguage['id_lang']),'all',false));
 						$this->template->display('loop/page.tpl');
 					}
 					break;
