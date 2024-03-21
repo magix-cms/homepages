@@ -25,11 +25,14 @@ class plugins_homepages_db
 							ORDER BY hs.order_hs ASC";
 					break;
 				case 'pages':
-					$query = 'SELECT mcp.id_pages AS id, mcp.id_parent AS parent, mcpc.name_pages AS name 
-                    FROM mc_cms_page AS mcp 
-                    LEFT JOIN mc_cms_page_content AS mcpc USING ( id_pages ) 
-                    LEFT JOIN mc_lang as ml ON (mcpc.id_lang = ml.id_lang) 
-                    WHERE ml.id_lang = :default_lang AND mcp.menu_pages = 1
+					$query = 'SELECT 
+								mcp.id_pages AS id, 
+								mcp.id_parent AS parent, 
+								mcpc.name_pages AS name
+							FROM mc_cms_page AS mcp
+							LEFT JOIN mc_cms_page_content AS mcpc USING ( id_pages ) 
+							LEFT JOIN mc_lang AS ml ON (mcpc.id_lang = ml.id_lang AND ml.default_lang = 1)
+							WHERE mcp.menu_pages = 1
 							AND mcpc.published_pages = 1
 							ORDER BY mcp.id_pages';
 					break;

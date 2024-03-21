@@ -219,8 +219,8 @@ class plugins_homepages_admin extends plugins_homepages_db {
 					'type' => 'order'
 				),
 				array(
-					'id_ms'    => $p[$i],
-					'order_ms' => $i
+					'id_hs'    => $p[$i],
+					'order_hs' => $i
 				)
 			);
 		}
@@ -267,8 +267,7 @@ class plugins_homepages_admin extends plugins_homepages_db {
 					break;
 				case 'get':
 					if(isset($this->content)) {
-                        $defaultLanguage = $this->collectionLanguage->fetchData(array('context'=>'one','type'=>'default'));
-                        $this->setPagesTree($this->getItems($this->content,array('default_lang' => $defaultLanguage['id_lang']),'all',false));
+						$this->setPagesTree($this->getItems($this->content,null,'all',false));
 						$this->template->display('loop/page.tpl');
 					}
 					break;
