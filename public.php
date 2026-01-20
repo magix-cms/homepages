@@ -34,17 +34,17 @@
  */
  /**
  * MAGIX CMS
- * @category   advantage
+ * @category   homepage
  * @package    plugins
- * @copyright  MAGIX CMS Copyright (c) 2008 - 2015 Gerits Aurelien,
+ * @copyright  MAGIX CMS Copyright (c) 2008 - 2026 Gerits Aurelien,
  * http://www.magix-cms.com,  http://www.magix-cjquery.com
  * @license    Dual licensed under the MIT or GPL Version 3 licenses.
  * @version    2.0
- * Author: Salvatore Di Salvo
- * Date: 17-12-15
+ * Author: Gerits Aurélien
+ * Date: 20/01/2026
  * Time: 10:38
- * @name plugins_advantage_public
- * Le plugin advantage
+ * @name plugins_homepages_public
+ * Le plugin homepage
  */
 class plugins_homepages_public extends plugins_homepages_db{
     /**
@@ -60,19 +60,25 @@ class plugins_homepages_public extends plugins_homepages_db{
 		$this->lang = $this->template->lang;
 	}
 
-	/**
-	 * Assign data to the defined variable or return the data
-	 * @param string $type
-	 * @param string|int|null $id
-	 * @param string $context
-	 * @param boolean $assign
-	 * @return mixed
-	 */
-	private function getItems($type, $id = null, $context = null, $assign = true) {
-		return $this->data->getItems($type, $id, $context, $assign);
-	}
-
-    private function setPagesData(array $rawData): array {
+    /**
+     * Assign data to the defined variable or return the data
+     * @param string $type
+     * @param string|int|null $id
+     * @param string|null $context
+     * @param bool|string $assign
+     * @return mixed
+     */
+    private function getItems(string $type, $id = null, string $context = null, $assign = true) {
+        return $this->data->getItems($type, $id, $context, $assign);
+    }
+    /**
+     * Load modules attached to homeproduct
+     */
+    /*_private function loadModules() {
+        if(!isset($this->module)) $this->module = new frontend_model_module();
+        if(!isset($this->mods)) $this->mods = $this->module->load_module('homepages');
+    }*/
+    /*private function setPagesData(array $rawData): array {
         $hc = [];
         if (!empty($rawData)) {
             foreach ($rawData as $key => $value) {
@@ -82,19 +88,19 @@ class plugins_homepages_public extends plugins_homepages_db{
             }
         }
         return $hc;
-    }
+    }*/
     /**
      * @param array $data
      * @return array
      */
-    public function extendListPages(array $data): array {
+    /*public function extendListPages(array $data): array {
         return $this->setPagesData($data);
-    }
+    }*/
     /**
      * @param array $filter
      * @return array
      */
-    public function getPagesList(array $filter = []): array {
+    /*public function getPagesList(array $filter = []): array {
         if(http_request::isGet('controller')) $this->controller = form_inputEscape::simpleClean($_GET['controller']);
         $extend = [];
         if(!isset($this->controller)) {
@@ -115,7 +121,7 @@ class plugins_homepages_public extends plugins_homepages_db{
                         ]
 
                     ],
-                    /*'where' => [
+                    'where' => [
                         [
                             'type' => 'AND',
                             'condition' => 'p.id_pages IN (' . $hcs['hsids'] . ')'
@@ -123,7 +129,7 @@ class plugins_homepages_public extends plugins_homepages_db{
                     ]
                     'order' => [
                         'hc.order_hc ASC'
-                    ]*/
+                    ]
                 ];
                 if(isset($filter['extendtype']) && $filter['extendtype'] === 'homepages') {
                     $extend['extendQueryParams']['filter'] = [[
@@ -138,14 +144,17 @@ class plugins_homepages_public extends plugins_homepages_db{
                 //print_r($extend);
             }
         }
+        $extend['newRow'] = ['homepages' => 'homepages'];
+        $extend['collection'] = 'homepages';
+        $extend['type'] = 'tree';
         return $extend;
-    }
+    }*/
 
     /**
      * @return array
      * @throws Exception
      */
-    public function getHomePages(){
+    /*public function getHomePages(){
         $order = $this->getItems('order',null,'all',false);
         // *** Mix pages and categories to fit the sectors order
         $arr = [];
@@ -156,5 +165,17 @@ class plugins_homepages_public extends plugins_homepages_db{
             $arr[] = $ref[$item['id_pages']];
         }
         return $arr;
+    }*/
+    /**
+     * @return array
+     * @throws Exception
+     */
+    public function getHomePages() : array{
+        $hcs = $this->getItems('homeMsp',array('limit'=>12),'one', false);
+        $page = new frontend_controller_pages();
+        $idsString = (string)($hcs['listids'] ?? '');
+
+        $hcs = $page->getPagesList(null, $idsString/*, 'p.order_pages'*/);///$hcs['listids']
+        return $hcs;
     }
 }

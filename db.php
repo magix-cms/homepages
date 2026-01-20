@@ -66,11 +66,14 @@ class plugins_homepages_db
 							LEFT JOIN mc_cms_page_content as pc ON (p.id_pages = pc.id_pages AND pc.id_lang = :id_lang)
 							ORDER BY hs.order_hs DESC LIMIT 0,1";
 					break;
-				case 'homeMsp':
+				/*case 'homeMsp':
 					$query = "SELECT 
 								GROUP_CONCAT(`id_pages` ORDER BY order_hs SEPARATOR ',') as hsids
 						  	FROM mc_homepages";
-					break;
+					break;*/
+                case 'homeMsp':
+                    $query = "SELECT substring_index(GROUP_CONCAT( `id_pages` ORDER BY order_hs SEPARATOR ','), ',', :limit) AS listids FROM mc_homepages";
+                    break;
                 default:
                     return false;
             }
